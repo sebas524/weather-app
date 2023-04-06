@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+
+body {
+  background-color: #6d92dc;
+  text-transform: capitalize;
+}
+img {
+  width: 200px;
+  height: 200px;
+}
+
+.gradient-custom {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 1),
+    rgba(255, 236, 210, 1)
+  );
+}
+
+.carousel-indicators li {
+  background-color: #282828;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+section {
+  background-color: #6687ca;
+}
