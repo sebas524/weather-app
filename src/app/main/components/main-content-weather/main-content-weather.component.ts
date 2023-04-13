@@ -5,4 +5,8 @@ import { Component } from '@angular/core';
   templateUrl: './main-content-weather.component.html',
   styles: [],
 })
-export class MainContentWeatherComponent {}
+export class MainContentWeatherComponent {
+  searchCityWeather(city: string) {
+    console.log('capital being searched: ', city);
+  }
+}

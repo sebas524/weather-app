@@ -1,11 +1,7 @@
-<div class="row mt-5 mb-5">
-  <div class="col-sm-6">
-    <input
-      class="form-control"
-      type="text"
-      #txtSearchInput
-      (keyup.enter)="valueEmitter(txtSearchInput.value)"
-      [placeholder]="barPlaceholder"
-    />
-  </div>
-</div>
+<input
+  class="form-control"
+  type="text"
+  #txtSearchInput
+  (keyup.enter)="valueEmitter(txtSearchInput.value)"
+  [placeholder]="barPlaceholder"
+/>
