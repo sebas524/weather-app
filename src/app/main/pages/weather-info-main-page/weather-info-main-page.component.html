@@ -8,7 +8,7 @@
     <hr />
   </div>
 </div>
-<!-- ! MESSAGE -->
+<!-- ! INTRO MESSAGE -->
 
 <ng-template #instructions>
   <div class="row p-3">
@@ -21,26 +21,27 @@
   </div>
 </ng-template>
 
-<div *ngIf="fetchedWeatherInfo !== undefined; else instructions" class="d-flex">
+<div
+  *ngIf="fetchedWeatherInfo !== undefined; else instructions"
+  class="d-flex row"
+>
   <!-- ! SIDEBAR -->
-  <div class="sidebar-container">
+  <div class="sidebar-container bg-light col-12 col-md-6 col-lg-4">
     <div class="border-right p-3" id="sidebar">
       <h3>{{ fetchedWeatherInfo.name }}</h3>
       <hr />
 
       <!-- ! SIDEBAR-WEATHER-INFO -->
       <div class="card text-bg-dark mb-3" style="max-width: 18rem">
-        <div class="card-header"></div>
+        <div class="card-header">Now</div>
         <img
           class="img-size"
           src="{{ fetchedWeatherInfo.weather![0].icon | weatherImg }}"
           alt=""
         />
         <div class="card-body">
-          <h4 class="card-title">Now</h4>
-          <p class="card-text">
-            Temperature: {{ fetchedWeatherInfo.main.temp }}
-          </p>
+          <h4 class="card-title">{{ fetchedWeatherInfo.main.temp }} C°</h4>
+
           <p class="card-text">
             Feels like: {{ fetchedWeatherInfo.main.feels_like }}
           </p>
@@ -53,7 +54,7 @@
   </div>
 
   <!-- !MAIN -->
-  <div class="main-container">
+  <div class="main-container col-12 col-md-6 col-lg-4">
     <div class="row p-3">
       <div class="col-12 pt-2">
         <!-- TODO: add upcoming hours -->
