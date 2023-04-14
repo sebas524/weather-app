@@ -1,52 +1,79 @@
-<div class="d-flex">
-
-
-<!-- ! SIDEBAR -->
-<div class="sidebar-container">
-  <div class="bg-light border-right p-3" id="sidebar">
-    <h3 class=>Berlin</h3>
+<div class="row p-3">
+  <div class="col-12 col-md-6 col-lg-7">
+    <!-- ! SEARCHBAR -->
+    <shared-search-bar
+      barPlaceholder="Search a City..."
+      (onValue)="searchCityWeather($event)"
+    ></shared-search-bar>
     <hr />
-
-    <div class="list-group list-reset">
-      <button class="list-group-item list-group-item-action">something</button>
-    </div>
   </div>
-  </div>
+</div>
+<!-- ! MESSAGE -->
 
-
-
-
-  <!-- !MAIN -->
-  <div class="main-container">
-
+<ng-template #instructions>
   <div class="row p-3">
     <div class="col-12 col-md-6 col-lg-7">
-      <!-- TODO: add searchBar -->
-      <shared-search-bar
-        barPlaceholder="Search a City..."
-        (onValue)="searchCityWeather($event)"
-      ></shared-search-bar>
-      <hr />
+      <div class="alert alert-info" role="alert">
+        Welcome to the Weather app. Please type in a city in order to show its
+        info.
+      </div>
     </div>
+  </div>
+</ng-template>
 
-    <div class="col-12 pt-2">
-      <!-- TODO: add upcoming hours -->
-      <p>upcoming hours</p>
-      <!-- ! CARD -->
-      <div class="card bg-light" style="width: 18rem">
+<div *ngIf="fetchedWeatherInfo !== undefined; else instructions" class="d-flex">
+  <!-- ! SIDEBAR -->
+  <div class="sidebar-container">
+    <div class="border-right p-3" id="sidebar">
+      <h3>{{ fetchedWeatherInfo.name }}</h3>
+      <hr />
+
+      <!-- ! SIDEBAR-WEATHER-INFO -->
+      <div class="card text-bg-dark mb-3" style="max-width: 18rem">
+        <div class="card-header"></div>
+        <img
+          class="img-size"
+          src="{{ fetchedWeatherInfo.weather![0].icon | weatherImg }}"
+          alt=""
+        />
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+          <h4 class="card-title">Now</h4>
           <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
+            Temperature: {{ fetchedWeatherInfo.main.temp }}
           </p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
+          <p class="card-text">
+            Feels like: {{ fetchedWeatherInfo.main.feels_like }}
+          </p>
+          <p class="card-text">
+            conditions: {{ fetchedWeatherInfo.weather![0].main }}
+          </p>
         </div>
       </div>
     </div>
   </div>
-  </div>
 
+  <!-- !MAIN -->
+  <div class="main-container">
+    <div class="row p-3">
+      <div class="col-12 pt-2">
+        <!-- TODO: add upcoming hours -->
+        <p>upcoming hours</p>
+        <!-- ! CARD -->
+        <div class="card bg-light" style="width: 18rem">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">
+              Card subtitle
+            </h6>
+            <p class="card-text">
+              Some quick example text to build on the card title and make up the
+              bulk of the card's content.
+            </p>
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

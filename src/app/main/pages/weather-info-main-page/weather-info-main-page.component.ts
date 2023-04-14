@@ -8,7 +8,9 @@ import { WeatherApiInterface } from 'src/app/main/interfaces/weatherAPI.interfac
   styles: [],
 })
 export class WeatherInfoMainPageComponent {
-  private fetchedWeatherInfo = {} as WeatherApiInterface | undefined;
+  public fetchedWeatherInfo?: WeatherApiInterface;
+  public imgNum: string = '10';
+  public iconUrl: string = `https://openweathermap.org/img/wn/${this.imgNum}d@2x.png`;
 
   // * injecting MyWeatherService:
   constructor(private MyWeatherService: MyWeatherService) {}
