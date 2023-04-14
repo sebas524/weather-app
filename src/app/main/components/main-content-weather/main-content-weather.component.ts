@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MyWeatherService } from '../../services/my-weather.service';
+import { WeatherApiInterface } from '../../interfaces/weatherAPI.interface';
 
 @Component({
   selector: 'component-main-content-weather',
@@ -7,6 +8,8 @@ import { MyWeatherService } from '../../services/my-weather.service';
   styles: [],
 })
 export class MainContentWeatherComponent {
+  private fetchedWeatherInfo = {} as WeatherApiInterface | undefined;
+
   // * injecting MyWeatherService:
   constructor(private myWeatherService: MyWeatherService) {}
 
@@ -15,6 +18,7 @@ export class MainContentWeatherComponent {
 
     this.myWeatherService.getWeatherByCity(city).subscribe((data) => {
       console.log('fetched info =>', data);
+      this.fetchedWeatherInfo = data;
     });
   }
 }
