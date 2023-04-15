@@ -1,10 +1,12 @@
+<div class="time">{{ currentTime | date : "HH:mm - EE dd MMM" }}</div>
+
 <div class="row p-3">
   <div class="col-12 col-md-6 col-lg-7">
     <!-- ! SEARCHBAR -->
-    <shared-search-bar
+    <!-- <shared-search-bar
       barPlaceholder="Search a City..."
       (onValue)="searchCityWeather($event)"
-    ></shared-search-bar>
+    ></shared-search-bar> -->
     <hr />
   </div>
 </div>
@@ -13,22 +15,16 @@
 <ng-template #instructions>
   <div class="row p-3">
     <div class="col-12 col-md-6 col-lg-7">
-      <div class="alert alert-info" role="alert">
-        Welcome to the Weather app. Please type in a city in order to show its
-        info.
-      </div>
+      <div class="alert alert-info" role="alert">loading...</div>
     </div>
   </div>
 </ng-template>
 
-<div
-  *ngIf="fetchedWeatherInfo !== undefined; else instructions"
-  class="d-flex row"
->
+<div *ngIf="weatherNow; else instructions" class="d-flex row">
   <!-- ! SIDEBAR -->
   <div class="sidebar-container bg-light col-12 col-md-6 col-lg-4">
     <div class="border-right p-3" id="sidebar">
-      <h3>{{ fetchedWeatherInfo.name }}</h3>
+      <h3>{{ location.name }}</h3>
       <hr />
 
       <!-- ! SIDEBAR-WEATHER-INFO -->
@@ -36,18 +32,18 @@
         <div class="card-header">Now</div>
         <img
           class="img-size"
-          src="{{ fetchedWeatherInfo.weather![0].icon | weatherImg }}"
+          src="{{ weatherNow.weather![0].icon | weatherImg }}"
           alt=""
         />
         <div class="card-body">
-          <h4 class="card-title">{{ fetchedWeatherInfo.main.temp }} C°</h4>
+          <h4 class="card-title">
+            {{ weatherNow.main.temp | number : "1.0-0" }} °C
+          </h4>
 
           <p class="card-text">
-            Feels like: {{ fetchedWeatherInfo.main.feels_like }}
+            Feels like: {{ weatherNow.main.feels_like | number : "1.0-0" }} °C
           </p>
-          <p class="card-text">
-            conditions: {{ fetchedWeatherInfo.weather![0].main }}
-          </p>
+          <p class="card-text">conditions: {{ weatherNow.weather![0].main }}</p>
         </div>
       </div>
     </div>
