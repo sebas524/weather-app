@@ -56,6 +56,7 @@ export class WeatherInfoMainPageComponent implements OnInit {
       this.timeline.push({
         time: forecast.dt_txt,
         temp: forecast.main.temp,
+        icon: forecast.weather![0].icon,
       });
 
       // * this const will be assign to it the dates provided to us by api, and then we'll change it to a timestamp:
