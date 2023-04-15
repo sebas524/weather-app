@@ -57,6 +57,7 @@ export class WeatherInfoMainPageComponent implements OnInit {
         time: forecast.dt_txt,
         temp: forecast.main.temp,
         icon: forecast.weather![0].icon,
+        conditions: forecast.weather![0].main,
       });
 
       // * this const will be assign to it the dates provided to us by api, and then we'll change it to a timestamp:
@@ -72,6 +73,15 @@ export class WeatherInfoMainPageComponent implements OnInit {
         console.log('weather now => ', this.weatherNow);
       }
     }
+  }
+
+  searchCityWeather(city: string) {
+    console.log('capital being searched: ', city);
+
+    // this.MyWeatherService.getWeatherByCity(city).subscribe((data) => {
+    //   console.log('fetched info =>', data);
+    //   this.fetchedWeatherInfo = data;
+    // });
   }
 
   // searchCityWeather(city: string) {

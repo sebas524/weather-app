@@ -1,12 +1,10 @@
-<div class="time">{{ currentTime | date : "HH:mm - EE dd MMM" }}</div>
-
 <div class="row p-3">
   <div class="col-12 col-md-6 col-lg-7">
     <!-- ! SEARCHBAR -->
-    <!-- <shared-search-bar
+    <shared-search-bar
       barPlaceholder="Search a City..."
       (onValue)="searchCityWeather($event)"
-    ></shared-search-bar> -->
+    ></shared-search-bar>
     <hr />
   </div>
 </div>
@@ -20,64 +18,70 @@
   </div>
 </ng-template>
 
-<div *ngIf="weatherNow; else instructions" class="d-flex row">
-  <!-- ! SIDEBAR -->
-  <div class="sidebar-container bg-light col-12 col-md-6 col-lg-4">
-    <div class="border-right p-3" id="sidebar">
-      <h3>{{ location.name }}</h3>
-      <hr />
+<div *ngIf="weatherNow; else instructions">
+  <div class="d-flex">
+    <!-- ! SIDEBAR -->
+    <div class="sidebar-container bg-light col-12 col-md-6 col-lg-4">
+      <div class="p-3">{{ currentTime | date : "HH:mm - EE dd MMM" }}</div>
+      <div class="border-right p-3" id="sidebar">
+        <h3>{{ location.name }}</h3>
+        <hr />
 
-      <!-- ! SIDEBAR-WEATHER-INFO -->
-      <div class="card text-bg-dark mb-3" style="max-width: 18rem">
-        <div class="card-header">Now</div>
-        <img
-          class="img-size"
-          src="{{ weatherNow.weather![0].icon | weatherImg }}"
-          alt=""
-        />
-        <div class="card-body">
-          <h4 class="card-title">
-            {{ weatherNow.main.temp | number : "1.0-0" }} °C
-          </h4>
+        <!-- ! SIDEBAR-WEATHER-INFO -->
+        <div class="card text-bg-dark mb-3" style="max-width: 18rem">
+          <div class="card-header">Now</div>
+          <img
+            class="img-size"
+            src="{{ weatherNow.weather![0].icon | weatherImg }}"
+            alt=""
+          />
+          <div class="card-body">
+            <h4 class="card-title">
+              {{ weatherNow.main.temp | number : "1.0-0" }} °C
+            </h4>
 
-          <p class="card-text">
-            Feels like: {{ weatherNow.main.feels_like | number : "1.0-0" }} °C
-          </p>
-          <p class="card-text">conditions: {{ weatherNow.weather![0].main }}</p>
+            <p class="card-text">
+              Feels like: {{ weatherNow.main.feels_like | number : "1.0-0" }} °C
+            </p>
+            <p class="card-text">
+              conditions: {{ weatherNow.weather![0].main }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ! 3 Day Forecast -->
+    <div>
+      <h5 class="mb-3">3 hour forecast:</h5>
+      <div class="container d-flex">
+        <div
+          *ngFor="let item of timeline"
+          class="card text-bg-light mb-3"
+          style="max-width: 18rem"
+        >
+          <div class="card-header">
+            {{ item.time | date : "HH:mm" }}
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ item.temp | number : "1.0-0" }}°C</h5>
+            <img class="img-size" src="{{ item.icon | weatherImg }}" alt="" />
+            <p class="card-text">
+              {{ item.conditions }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- !MAIN -->
-  <div class="main-container col-12 col-md-6 col-lg-4">
-    <div class="row p-3">
-      <div class="col-12 pt-2">
-        <!-- ! 5 Day Forecast -->
+  <div class="row">
+    <!-- !MAIN -->
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="row p-3">
+        <div class="col-12 pt-2">
+          <!-- ! 5 Day Forecast -->
 
-        <app-five-day-forecast-page></app-five-day-forecast-page>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="main-container col-12 col-md-6 col-lg-4">
-  <div class="row p-3">
-    <div class="col-12 pt-2">
-      <!-- ! 3 Day Forecast -->
-      <div
-        *ngFor="let item of timeline"
-        class="card text-bg-light mb-3"
-        style="max-width: 18rem"
-      >
-        <div class="card-header">{{ item.time | date : "HH:mm" }}</div>
-        <div class="card-body">
-          <h5 class="card-title">{{ item.temp | number : "1.0-0" }}°C</h5>
-          <img class="img-size" src="{{ item.icon | weatherImg }}" alt="" />
-          <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
+          <app-five-day-forecast-page></app-five-day-forecast-page>
         </div>
       </div>
     </div>
