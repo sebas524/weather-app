@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MainRoutingModule } from './main-routing.module';
-import { MainLayoutComponent } from './main-layout/main-layout.component';
+import { MainLayoutComponent } from './pages/main-layout/main-layout.component';
 import { SharedModule } from '../shared/shared.module';
 import { WeatherInfoMainPageComponent } from './pages/weather-info-main-page/weather-info-main-page.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -12,7 +12,14 @@ import { AboutPageComponent } from './pages/about-page/about-page.component';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 
 @NgModule({
-  declarations: [MainLayoutComponent, WeatherInfoMainPageComponent, WeatherImgPipe, FiveDayForecastPageComponent, AboutPageComponent, ContactPageComponent],
+  declarations: [
+    MainLayoutComponent,
+    WeatherInfoMainPageComponent,
+    WeatherImgPipe,
+    FiveDayForecastPageComponent,
+    AboutPageComponent,
+    ContactPageComponent,
+  ],
   imports: [CommonModule, MainRoutingModule, SharedModule, HttpClientModule],
 })
 export class MainModule {}

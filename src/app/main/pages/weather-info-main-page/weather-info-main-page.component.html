@@ -21,14 +21,17 @@
 <div *ngIf="weatherNow; else instructions">
   <div class="row">
     <!-- ! SIDEBAR -->
-    <div class="sidebar-container bg-light col-12 col-md-6 col-lg-4">
-      <div class="p-3">{{ currentTime | date : "HH:mm - EE dd MMM" }}</div>
+    <div class="sidebar-container col-12 col-md-6 col-lg-4">
+      <div class="p-3">{{ currentTime | date : "EEEE dd MMMM, HH:mm" }}</div>
       <div class="border-right p-3" id="sidebar">
         <h3>{{ location.name }}</h3>
         <hr />
 
         <!-- ! SIDEBAR-WEATHER-INFO -->
-        <div class="card text-bg-dark mb-3" style="max-width: 18rem">
+        <div
+          class="card text-center text-bg-dark mb-3 align-items-center"
+          style="max-width: 18rem"
+        >
           <div class="card-header">Now</div>
           <img
             class="img-size"
@@ -50,9 +53,10 @@
         </div>
       </div>
     </div>
+
     <!-- ! 3 Day Forecast -->
 
-    <h5 class="mb-5">3 hour forecast:</h5>
+    <h5 class="p-4">3 hour forecast:</h5>
     <div
       *ngFor="let item of timelineForOneDay"
       class="card text-bg-light m-2"

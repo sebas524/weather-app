@@ -17,7 +17,8 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col"></th>
+      <th scope="col">Temperature</th>
+      <th scope="col">Condition</th>
       <th scope="col">date</th>
       <th scope="col">day of the week</th>
     </tr>
@@ -32,6 +33,7 @@
           alt=""
         />
       </td>
+      <td>{{ forecast.weather![0].main }}</td>
       <td>
         {{ forecast.dt_txt | date : "EEE, MMM dd" }}
       </td>

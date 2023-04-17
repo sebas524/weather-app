@@ -59,16 +59,16 @@ export class MyWeatherService {
       );
   }
 
-  getFiveDayForecast(city: string) {
-    const type: string = 'forecast';
-    return this.http
-      .get<WeatherApiInterface>(
-        `${this.baseUrl}/${type}?q=${city}&appid=${environment.APIKEY}`
-      )
-      .pipe(
-        catchError((err) => {
-          return of(undefined);
-        })
-      );
-  }
+  // getFiveDayForecast(city: string) {
+  //   const type: string = 'forecast';
+  //   return this.http
+  //     .get<WeatherApiInterface>(
+  //       `${this.baseUrl}/${type}?q=${city}&appid=${environment.APIKEY}`
+  //     )
+  //     .pipe(
+  //       catchError((err) => {
+  //         return of(undefined);
+  //       })
+  //     );
+  // }
 }
