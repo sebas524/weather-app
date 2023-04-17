@@ -8,9 +8,11 @@ import { WeatherInfoMainPageComponent } from './pages/weather-info-main-page/wea
 import { HttpClientModule } from '@angular/common/http';
 import { WeatherImgPipe } from './pipes/weather-img.pipe';
 import { FiveDayForecastPageComponent } from './pages/five-day-forecast-page/five-day-forecast-page.component';
+import { AboutPageComponent } from './pages/about-page/about-page.component';
+import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 
 @NgModule({
-  declarations: [MainLayoutComponent, WeatherInfoMainPageComponent, WeatherImgPipe, FiveDayForecastPageComponent],
+  declarations: [MainLayoutComponent, WeatherInfoMainPageComponent, WeatherImgPipe, FiveDayForecastPageComponent, AboutPageComponent, ContactPageComponent],
   imports: [CommonModule, MainRoutingModule, SharedModule, HttpClientModule],
 })
 export class MainModule {}

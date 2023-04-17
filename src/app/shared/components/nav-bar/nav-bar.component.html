@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-sm bg-dark" data-bs-theme="dark">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="home">weather app</a>
+    <a class="navbar-brand" routerLink="home">WeatherApp</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -20,11 +20,14 @@
             aria-current="page"
             routerLink="home"
             routerLinkActive="active"
-            >home</a
+            >Home</a
           >
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="about" routerLinkActive="active"
+          <a
+            class="nav-link"
+            routerLink="../main/about"
+            routerLinkActive="active"
             >about</a
           >
         </li>
@@ -32,38 +35,6 @@
           <a class="nav-link" routerLink="contact" routerLinkActive="active"
             >contact</a
           >
-        </li>
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            search
-          </a>
-          <ul class="dropdown-menu">
-            <li>
-              <a class="dropdown-item" routerLink="search/by-countries"
-                >by countries</a
-              >
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="search/by-capital"
-                >by capital</a
-              >
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="search/by-region"
-                >by region</a
-              >
-            </li>
-            <li>
-              <a class="dropdown-item" routerLink="search/by-country/:id"
-                >specific country</a
-              >
-            </li>
-          </ul>
         </li>
       </ul>
     </div>

@@ -35,7 +35,7 @@ export class MyWeatherService {
           .set('units', 'metric')
           .set('appid', 'bb3a234039078f99acd82d0fce2f1c34');
       }),
-      // * switchMap will be used to fetch the data:
+      // * switchMap will be used to fetch the data and pass it to the get method of the http:
       switchMap((values) => {
         return this.http.get(
           'https://api.openweathermap.org/data/2.5/forecast',

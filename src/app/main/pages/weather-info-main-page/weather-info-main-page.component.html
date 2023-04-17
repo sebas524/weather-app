@@ -19,7 +19,7 @@
 </ng-template>
 
 <div *ngIf="weatherNow; else instructions">
-  <div class="d-flex">
+  <div class="row">
     <!-- ! SIDEBAR -->
     <div class="sidebar-container bg-light col-12 col-md-6 col-lg-4">
       <div class="p-3">{{ currentTime | date : "HH:mm - EE dd MMM" }}</div>
@@ -51,25 +51,22 @@
       </div>
     </div>
     <!-- ! 3 Day Forecast -->
-    <div>
-      <h5 class="mb-3">3 hour forecast:</h5>
-      <div class="container d-flex">
-        <div
-          *ngFor="let item of timeline"
-          class="card text-bg-light mb-3"
-          style="max-width: 18rem"
-        >
-          <div class="card-header">
-            {{ item.time | date : "HH:mm" }}
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">{{ item.temp | number : "1.0-0" }}°C</h5>
-            <img class="img-size" src="{{ item.icon | weatherImg }}" alt="" />
-            <p class="card-text">
-              {{ item.conditions }}
-            </p>
-          </div>
-        </div>
+
+    <h5 class="mb-5">3 hour forecast:</h5>
+    <div
+      *ngFor="let item of timelineForOneDay"
+      class="card text-bg-light m-2"
+      style="max-width: 10rem"
+    >
+      <div class="card-header">
+        {{ item.time | date : "HH:mm" }}
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{ item.temp | number : "1.0-0" }}°C</h5>
+        <img class="img-size" src="{{ item.icon | weatherImg }}" alt="" />
+        <p class="card-text">
+          {{ item.conditions }}
+        </p>
       </div>
     </div>
   </div>
