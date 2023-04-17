@@ -47,10 +47,10 @@ export class MyWeatherService {
 
   // !METHOD X
   getWeatherByCity(city: string): Observable<WeatherApiInterface | undefined> {
-    const type: string = 'weather';
+    const type: string = 'forecast';
     return this.http
       .get<WeatherApiInterface>(
-        `${this.baseUrl}/${type}?q=${city}&appid=${environment.APIKEY}`
+        `${this.baseUrl}/${type}?q=${city}&appid=${environment.APIKEY}&units=metric`
       )
       .pipe(
         catchError((err) => {
