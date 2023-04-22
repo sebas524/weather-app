@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, catchError, map, of, switchMap } from 'rxjs';
+import { Observable, catchError, map, of, switchMap, tap } from 'rxjs';
 import { WeatherApiInterface } from '../interfaces/weatherAPI.interface';
 import { environment } from 'src/app/environments/environment';
 
@@ -34,6 +34,9 @@ export class MyWeatherService {
           .set('lat', val.coords.latitude)
           .set('units', 'metric')
           .set('appid', 'bb3a234039078f99acd82d0fce2f1c34');
+      }),
+      tap((x) => {
+        console.log('TAP HERE: ', x);
       }),
       // * switchMap will be used to fetch the data and pass it to the get method of the http:
       switchMap((values) => {

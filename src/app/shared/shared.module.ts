@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [NavBarComponent, SearchBarComponent, Error404PageComponent],
-  exports: [NavBarComponent, SearchBarComponent, RouterModule],
-  imports: [CommonModule],
+  exports: [NavBarComponent, SearchBarComponent],
+  imports: [CommonModule, RouterModule],
 })
 export class SharedModule {}
