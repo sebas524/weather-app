@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MyWeatherService } from '../../services/my-weather.service';
-import { WeatherApiInterface } from 'src/app/main/interfaces/weatherAPI.interface';
 
 @Component({
   selector: 'app-weather-info-main-page',
@@ -8,10 +7,6 @@ import { WeatherApiInterface } from 'src/app/main/interfaces/weatherAPI.interfac
   styles: [],
 })
 export class WeatherInfoMainPageComponent implements OnInit {
-  // public fetchedWeatherInfo?: WeatherApiInterface;
-  // public imgNum: string = '10';
-  // public iconUrl: string = `https://openweathermap.org/img/wn/${this.imgNum}d@2x.png`;
-
   // ! ATTRIBUTES:
   // * timeline array will hold the time and corresponding temperature for the whole day (that means, 8 different forecasts, because it is every three hours. 8*3 = 24):
   timelineForOneDay: any = [];
@@ -21,16 +16,44 @@ export class WeatherInfoMainPageComponent implements OnInit {
   // *holds city and location
   location: any;
 
+  latitude?: number;
+  longitude?: number;
+  weatherData: any;
+
+  fetched5dayWeatherData: any = [];
+
   // ! CONSTRUCTOR:
 
   constructor(private myWeatherService: MyWeatherService) {}
   // ! ON INIT:
 
   ngOnInit(): void {
-    this.myWeatherService.getWeatherForecast().subscribe((data) => {
-      console.log('data from ngOnInit => ', data);
-      this.getTodayForecast(data);
-    });
+    // * checking if geolocation is possible by browser:
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+        console.log(`Latitude: ${this.latitude}, Longitude: ${this.longitude}`);
+
+        this.myWeatherService
+          // * passing in geo parameters:
+
+          .getWeatherByGeoLocation(this.latitude, this.longitude)
+          .subscribe((data) => {
+            console.log('data from ngOnInit => ', data);
+            this.weatherData = data;
+            this.getTodayForecast(this.weatherData);
+            this.getFiveDayForecast(this.weatherData.list);
+          });
+      });
+    } else {
+      console.log('This browser does not support geolocation.');
+    }
+
+    // this.myWeatherService.getWeatherForecast().subscribe((data) => {
+    //   console.log('data from ngOnInit => ', data);
+    //   this.getTodayForecast(data);
+    // });
   }
   // ! METHODS:
 
@@ -53,6 +76,7 @@ export class WeatherInfoMainPageComponent implements OnInit {
     // * we'll look through the list and slice the data so we can get just the first 8 elements:
     for (const forecast of info.list.slice(0, 8)) {
       console.log('forecast =>', forecast);
+      // * here we are pushing specific info fro  list into timelineForOneDay:
       this.timelineForOneDay.push({
         time: forecast.dt_txt,
         temp: forecast.main.temp,
@@ -75,14 +99,32 @@ export class WeatherInfoMainPageComponent implements OnInit {
     }
   }
 
-  searchCityWeather(city: string) {
+  searchByCity(city: string) {
     console.log('capital being searched: ', city);
 
-    this.myWeatherService.getWeatherByCity(city).subscribe((data) => {
+    this.myWeatherService.getWeatherByCityName(city).subscribe((data) => {
+      this.weatherData = data;
+
       console.log('fetched info =>', data);
+      // * in order to set values to "blank" again (because they where already populated on ng on init!!!):
       this.weatherNow = false;
       this.timelineForOneDay = [];
-      this.getTodayForecast(data);
+      this.fetched5dayWeatherData = [];
+
+      this.getTodayForecast(this.weatherData);
+
+      this.getFiveDayForecast(this.weatherData.list);
     });
+  }
+
+  getFiveDayForecast(info: any) {
+    for (let i = 0; i < info.length; i = i + 8) {
+      this.fetched5dayWeatherData.push(info[i]);
+    }
+
+    console.log(
+      'five day forecast array with data => ',
+      this.fetched5dayWeatherData
+    );
   }
 }
