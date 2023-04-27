@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-five-day-forecast',
   templateUrl: './five-day-forecast.component.html',
-  styles: [
-  ]
+  styles: [],
 })
 export class FiveDayForecastComponent {
-
+  @Input() fetched5dayWeatherData: any;
 }

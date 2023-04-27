@@ -1,1 +1,29 @@
-<p>five-day-forecast works!</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Temperature</th>
+      <th scope="col">Condition</th>
+      <th scope="col">date</th>
+      <th scope="col">day of the week</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let forecast of fetched5dayWeatherData">
+      <td>
+        {{ forecast.main.temp | number : "1.0-0" }} °C
+        <img
+          class="img-size"
+          src="{{ forecast.weather![0].icon | weatherImg }}"
+          alt=""
+        />
+      </td>
+      <td>{{ forecast.weather![0].main }}</td>
+      <td>
+        {{ forecast.dt_txt | date : "EEE, MMM dd" }}
+      </td>
+      <td>
+        {{ forecast.dt_txt | date : "EEE" }}
+      </td>
+    </tr>
+  </tbody>
+</table>

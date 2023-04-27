@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-main-card',
   templateUrl: './main-card.component.html',
-  styles: [
-  ]
+  styles: [],
 })
 export class MainCardComponent {
-
+  @Input() weatherNow: any;
 }

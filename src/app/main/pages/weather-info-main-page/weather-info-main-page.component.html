@@ -9,7 +9,6 @@
   </div>
 </div>
 <!-- ! INTRO MESSAGE -->
-
 <ng-template #instructions>
   <div class="row p-3">
     <div class="col-12 col-md-6 col-lg-7">
@@ -18,103 +17,41 @@
   </div>
 </ng-template>
 
+<!-- ! SECTION -->
 <div *ngIf="weatherNow; else instructions">
   <div class="row">
-    <!-- ! SIDEBAR -->
+    <!-- * MAIN-HEADING -->
     <div class="sidebar-container col-12 col-md-6 col-lg-4">
       <div class="p-3">{{ currentTime | date : "EEEE dd MMMM, HH:mm" }}</div>
       <div class="border-right p-3" id="sidebar">
         <h3>{{ location.name }}</h3>
         <hr />
-        <!-- TODO: REFACTOR INTO OWN COMPONENT: -->
 
-        <!-- ! MAIN-CARD-WEATHER-INFO -->
-        <div
-          class="card text-center text-bg-dark mb-3 align-items-center"
-          style="max-width: 18rem"
-        >
-          <div class="card-header">Now</div>
-          <img
-            class="img-size"
-            src="{{ weatherNow.weather![0].icon | weatherImg }}"
-            alt=""
-          />
-          <div class="card-body">
-            <h4 class="card-title">
-              {{ weatherNow.main.temp | number : "1.0-0" }} °C
-            </h4>
-
-            <p class="card-text">
-              Feels like: {{ weatherNow.main.feels_like | number : "1.0-0" }} °C
-            </p>
-            <p class="card-text">
-              conditions: {{ weatherNow.weather![0].main }}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- TODO: REFACTOR INTO OWN COMPONENT: -->
-    <!-- ! 3 Day Forecast -->
-
-    <h5 class="p-4">3 hour forecast:</h5>
-    <div
-      *ngFor="let item of timelineForOneDay"
-      class="card text-bg-light m-2"
-      style="max-width: 10rem"
-    >
-      <div class="card-header">
-        {{ item.time | date : "HH:mm" }}
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">{{ item.temp | number : "1.0-0" }}°C</h5>
-        <img class="img-size" src="{{ item.icon | weatherImg }}" alt="" />
-        <p class="card-text">
-          {{ item.conditions }}
-        </p>
+        <!-- * MAIN-CARD-WEATHER-INFO -->
+        <app-main-card [weatherNow]="weatherNow"></app-main-card>
       </div>
     </div>
   </div>
 
+  <!-- * 3-DAY-FORECAST -->
+
+  <h5 class="p-4">3 hour forecast:</h5>
   <div class="row">
-    <!-- !MAIN -->
+    <app-three-day-forecast
+      [timelineForOneDay]="timelineForOneDay"
+    ></app-three-day-forecast>
+  </div>
+
+  <div class="row">
     <div class="col-12 col-md-6 col-lg-4">
       <div class="row p-3">
         <div class="col-12 pt-2">
-          <!-- TODO: REFACTOR INTO OWN COMPONENT: -->
-          <!-- ! 5 Day Forecast -->
+          <!-- * 5-DAY-FORECAST -->
           <h5>5 day forecast</h5>
 
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Temperature</th>
-                <th scope="col">Condition</th>
-                <th scope="col">date</th>
-                <th scope="col">day of the week</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let forecast of fetched5dayWeatherData">
-                <td>
-                  {{ forecast.main.temp | number : "1.0-0" }} °C
-                  <img
-                    class="img-size"
-                    src="{{ forecast.weather![0].icon | weatherImg }}"
-                    alt=""
-                  />
-                </td>
-                <td>{{ forecast.weather![0].main }}</td>
-                <td>
-                  {{ forecast.dt_txt | date : "EEE, MMM dd" }}
-                </td>
-                <td>
-                  {{ forecast.dt_txt | date : "EEE" }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <!-- ! -->
+          <app-five-day-forecast
+            [fetched5dayWeatherData]="fetched5dayWeatherData"
+          ></app-five-day-forecast>
         </div>
       </div>
     </div>

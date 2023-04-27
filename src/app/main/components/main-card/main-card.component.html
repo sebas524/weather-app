@@ -1,1 +1,19 @@
-<p>main-card works!</p>
+<div
+  class="card text-center text-bg-dark mb-3 align-items-center"
+  style="max-width: 18rem"
+>
+  <div class="card-header">Now</div>
+  <img
+    class="img-size"
+    src="{{ weatherNow.weather![0].icon | weatherImg }}"
+    alt=""
+  />
+  <div class="card-body">
+    <h4 class="card-title">{{ weatherNow.main.temp | number : "1.0-0" }} °C</h4>
+
+    <p class="card-text">
+      Feels like: {{ weatherNow.main.feels_like | number : "1.0-0" }} °C
+    </p>
+    <p class="card-text">conditions: {{ weatherNow.weather![0].main }}</p>
+  </div>
+</div>

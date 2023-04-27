@@ -1,1 +1,18 @@
-<p>three-day-forecast works!</p>
+<div class="d-flex flex-wrap">
+  <div
+    *ngFor="let item of timelineForOneDay"
+    class="card text-bg-light m-2"
+    style="max-width: 10rem"
+  >
+    <div class="card-header">
+      {{ item.time | date : "HH:mm" }}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{ item.temp | number : "1.0-0" }}°C</h5>
+      <img class="img-size" src="{{ item.icon | weatherImg }}" alt="" />
+      <p class="card-text">
+        {{ item.conditions }}
+      </p>
+    </div>
+  </div>
+</div>
