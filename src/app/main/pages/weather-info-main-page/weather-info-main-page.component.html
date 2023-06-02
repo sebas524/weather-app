@@ -1,11 +1,10 @@
-<div class="row p-3">
-  <div class="col-12 col-md-6 col-lg-7">
+<div class="row">
+  <div class="col-12 col-md-7 col-lg-8 mb-4">
     <!-- ! SEARCHBAR -->
     <shared-search-bar
       barPlaceholder="Search a City..."
       (onValue)="searchByCity($event)"
     ></shared-search-bar>
-    <hr />
   </div>
 </div>
 <!-- ! INTRO MESSAGE -->
@@ -19,41 +18,36 @@
 
 <!-- ! SECTION -->
 <div *ngIf="weatherNow; else instructions">
-  <div class="row">
-    <!-- * MAIN-HEADING -->
-    <div class="sidebar-container col-12 col-md-6 col-lg-4">
-      <div class="p-3">{{ currentTime | date : "EEEE dd MMMM, HH:mm" }}</div>
-      <div class="border-right p-3" id="sidebar">
-        <h3>{{ location.name }}</h3>
-        <hr />
+  <!-- * MAIN-HEADING -->
 
-        <!-- * MAIN-CARD-WEATHER-INFO -->
-        <app-main-card [weatherNow]="weatherNow"></app-main-card>
-      </div>
-    </div>
+  <div class="mb-3">
+    <h3>{{ location.name }}</h3>
+    {{ currentTime | date : "EEEE dd MMMM, HH:mm" }}
+  </div>
+
+  <!-- * MAIN-CARD-WEATHER-INFO -->
+
+  <div>
+    <app-main-card [weatherNow]="weatherNow"></app-main-card>
   </div>
 
   <!-- * 3-DAY-FORECAST -->
 
-  <h5 class="p-4">3 hour forecast:</h5>
-  <div class="row">
+  <div>
+    <h5>3 hour forecast:</h5>
+
     <app-three-day-forecast
       [timelineForOneDay]="timelineForOneDay"
     ></app-three-day-forecast>
   </div>
 
-  <div class="row">
-    <div class="col-12 col-md-6 col-lg-4">
-      <div class="row p-3">
-        <div class="col-12 pt-2">
-          <!-- * 5-DAY-FORECAST -->
-          <h5>5 day forecast</h5>
+  <!-- * 5-DAY-FORECAST -->
 
-          <app-five-day-forecast
-            [fetched5dayWeatherData]="fetched5dayWeatherData"
-          ></app-five-day-forecast>
-        </div>
-      </div>
-    </div>
+  <div>
+    <h5>5 day forecast:</h5>
+
+    <app-five-day-forecast
+      [fetched5dayWeatherData]="fetched5dayWeatherData"
+    ></app-five-day-forecast>
   </div>
 </div>
