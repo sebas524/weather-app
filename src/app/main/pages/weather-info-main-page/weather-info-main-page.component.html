@@ -18,27 +18,29 @@
 
 <!-- ! SECTION -->
 <div *ngIf="weatherNow; else instructions">
-  <!-- * MAIN-HEADING -->
+  <div class="row mb-2 combinesBoth">
+    <div class="combinesTitleAndCard col-12 col-md-4">
+      <!-- * MAIN-HEADING -->
 
-  <div class="mb-3">
-    <h3>{{ location.name }}</h3>
-    {{ currentTime | date : "EEEE dd MMMM, HH:mm" }}
-  </div>
+      <div class="mb-3">
+        <h2>{{ location.name }}</h2>
+        <h6>{{ currentTime | date : "EEEE dd MMMM, HH:mm" }}</h6>
+      </div>
 
-  <!-- * MAIN-CARD-WEATHER-INFO -->
+      <!-- * MAIN-CARD-WEATHER-INFO -->
 
-  <div>
-    <app-main-card [weatherNow]="weatherNow"></app-main-card>
-  </div>
+      <app-main-card [weatherNow]="weatherNow"></app-main-card>
+    </div>
 
-  <!-- * 3-DAY-FORECAST -->
+    <!-- * 3-DAY-FORECAST -->
 
-  <div>
-    <h5>3 hour forecast:</h5>
+    <div class="combinesTitleAndCard3 col-12 col-md-7">
+      <h5>3 hour forecast:</h5>
 
-    <app-three-day-forecast
-      [timelineForOneDay]="timelineForOneDay"
-    ></app-three-day-forecast>
+      <app-three-day-forecast
+        [timelineForOneDay]="timelineForOneDay"
+      ></app-three-day-forecast>
+    </div>
   </div>
 
   <!-- * 5-DAY-FORECAST -->
