@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MyWeatherService } from '../../services/my-weather.service';
+import { List, WeatherInter } from 'src/app/interfaces/weather.interface';
+import { City } from 'src/app/interfaces/weather.interface';
 
 @Component({
   selector: 'app-weather-info-main-page',
@@ -14,11 +16,11 @@ export class WeatherInfoMainPageComponent implements OnInit {
   // * current time will return time and date of laptop:
   currentTime = new Date();
   // *holds city and location
-  location: any;
+  location?: City;
 
   latitude?: number;
   longitude?: number;
-  weatherData: any;
+  weatherData?: WeatherInter;
 
   fetched5dayWeatherData: any = [];
 
@@ -33,21 +35,24 @@ export class WeatherInfoMainPageComponent implements OnInit {
       navigator.geolocation.getCurrentPosition((position) => {
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
-        console.log(`Latitude: ${this.latitude}, Longitude: ${this.longitude}`);
+        // console.log(`Latitude: ${this.latitude}, Longitude: ${this.longitude}`);
+
+        // * passing in geo parameters to getWeatherByGeoLocation method:
 
         this.myWeatherService
-          // * passing in geo parameters:
-
           .getWeatherByGeoLocation(this.latitude, this.longitude)
           .subscribe((data) => {
-            console.log('data from ngOnInit => ', data);
+            console.log('Current Position fetched data => ', data);
             this.weatherData = data;
             this.getTodayForecast(this.weatherData);
+
             this.getFiveDayForecast(this.weatherData.list);
+
+            // * ! from list you get weather of every three hours
           });
       });
     } else {
-      console.log('This browser does not support geolocation.');
+      console.log('This browser does not support geolocation...');
     }
 
     // this.myWeatherService.getWeatherForecast().subscribe((data) => {
@@ -71,12 +76,14 @@ export class WeatherInfoMainPageComponent implements OnInit {
   }
 
   // *the following method is to get the data stored in ngOnInit, it is then called inside the init with data passed in as parameter:
-  getTodayForecast(info: any) {
+  getTodayForecast(info: WeatherInter) {
     this.location = info.city;
-    // * we'll look through the list and slice the data so we can get just the first 8 elements:
+
+    // ! list is three hour forecast:
+    // * we'll look through the list and slice the data so we can get just the first 8 elements (8 elements because it has the weather for every three hours and well 8 * 3 = 24, and we are looking for *read function name):
     for (const forecast of info.list.slice(0, 8)) {
-      console.log('forecast =>', forecast);
-      // * here we are pushing specific info fro  list into timelineForOneDay:
+      // console.log('forecast =>', forecast);
+      // * here we are pushing specific info from  list into timelineForOneDay:
       this.timelineForOneDay.push({
         time: forecast.dt_txt,
         temp: forecast.main.temp,
@@ -99,6 +106,7 @@ export class WeatherInfoMainPageComponent implements OnInit {
     }
   }
 
+  // * this is for when you manually look for a city:
   searchByCity(city: string) {
     console.log('capital being searched: ', city);
 
@@ -107,7 +115,7 @@ export class WeatherInfoMainPageComponent implements OnInit {
 
       console.log('fetched info =>', data);
       // * in order to set values to "blank" again (because they where already populated on ng on init!!!):
-      this.weatherNow = false;
+      // this.weatherNow = false;
       this.timelineForOneDay = [];
       this.fetched5dayWeatherData = [];
 
@@ -117,14 +125,14 @@ export class WeatherInfoMainPageComponent implements OnInit {
     });
   }
 
-  getFiveDayForecast(info: any) {
+  getFiveDayForecast(info: List[]) {
     for (let i = 0; i < info.length; i = i + 8) {
       this.fetched5dayWeatherData.push(info[i]);
     }
 
-    console.log(
-      'five day forecast array with data => ',
-      this.fetched5dayWeatherData
-    );
+    // console.log(
+    //   'five day forecast array with data => ',
+    //   this.fetched5dayWeatherData
+    // );
   }
 }
