@@ -14,3 +14,13 @@ img {
   justify-content: space-between;
   flex-wrap: nowrap;
 }
+.btnEdited {
+  margin-left: 5px;
+}
+
+.combinesTitleAndCard {
+  min-width: 400px;
+}
+.combinesTitleAndCard2 {
+  min-width: 300px;
+}
