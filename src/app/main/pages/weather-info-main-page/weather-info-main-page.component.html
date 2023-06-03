@@ -5,6 +5,15 @@
       barPlaceholder="Search a City..."
       (onValue)="searchByCity($event)"
     ></shared-search-bar>
+    <!-- ! ERROR MESSAGE -->
+
+    <div class="row" *ngIf="showErrorMsg">
+      <div class="col-12">
+        <div class="alert alert-danger" role="alert">
+          {{ errorMsg }}
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <!-- ! INTRO MESSAGE -->

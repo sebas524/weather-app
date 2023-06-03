@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/app/environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { WeatherInter } from 'src/app/interfaces/weather.interface';
 
 @Injectable({
@@ -17,7 +17,15 @@ export class MyWeatherService {
 
   getWeatherByCityName(nameOfCity: string): Observable<WeatherInter> {
     const url = `${this.baseUrl}?q=${nameOfCity}&appid=${this.apiKey}&units=metric`;
-    return this.http.get<WeatherInter>(url);
+    return this.http.get<WeatherInter>(url).pipe(
+      // * in case city not found:
+      catchError((err) => {
+        console.log('hiiii', err);
+        return throwError(() => {
+          return err.error.message;
+        });
+      })
+    );
   }
 
   getWeatherByGeoLocation(lat: number, lon: number): Observable<WeatherInter> {

@@ -21,6 +21,10 @@ export class WeatherInfoMainPageComponent implements OnInit {
   latitude?: number;
   longitude?: number;
   weatherData?: WeatherInter;
+  // * for when city not found:
+  showErrorMsg: boolean = false;
+  errorMsg: string =
+    'City name not found. Please check spelling or try another name...';
 
   fetched5dayWeatherData: any = [];
 
@@ -110,19 +114,32 @@ export class WeatherInfoMainPageComponent implements OnInit {
   searchByCity(city: string) {
     console.log('capital being searched: ', city);
 
-    this.myWeatherService.getWeatherByCityName(city).subscribe((data) => {
-      this.weatherData = data;
+    this.myWeatherService.getWeatherByCityName(city).subscribe({
+      next: (data) => {
+        this.weatherData = data;
 
-      console.log('fetched info =>', data);
-      // * in order to set values to "blank" again (because they where already populated on ng on init!!!):
-      // this.weatherNow = false;
-      this.timelineForOneDay = [];
-      this.fetched5dayWeatherData = [];
+        console.log('fetched info =>', data);
+        // * in order to set values to "blank" again (because they where already populated on ng on init!!!):
+        // this.weatherNow = false;
+        this.timelineForOneDay = [];
+        this.fetched5dayWeatherData = [];
 
-      this.getTodayForecast(this.weatherData);
+        this.getTodayForecast(this.weatherData);
 
-      this.getFiveDayForecast(this.weatherData.list);
+        this.getFiveDayForecast(this.weatherData.list);
+      },
+      error: (err) => {
+        return this.showErrorHandler();
+      },
     });
+  }
+
+  showErrorHandler() {
+    this.showErrorMsg = true;
+
+    return setTimeout(() => {
+      this.showErrorMsg = false;
+    }, 2300);
   }
 
   getFiveDayForecast(info: List[]) {
