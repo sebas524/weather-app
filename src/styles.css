@@ -24,3 +24,9 @@ img {
 .combinesTitleAndCard2 {
   min-width: 300px;
 }
+
+#map {
+  width: 25vw;
+  height: 25vh;
+  background-color: red;
+}
