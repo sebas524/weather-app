@@ -28,7 +28,7 @@
 <!-- ! SECTION -->
 <div *ngIf="weatherNow; else instructions">
   <div class="row mb-2 combinesBoth">
-    <div class="combinesTitleAndCard col-12 col-md-3">
+    <div class="combinesTitleAndCard col-12 col-md-6">
       <!-- * MAIN-HEADING -->
 
       <div class="mb-3">
@@ -42,20 +42,25 @@
       <app-main-card [weatherNow]="weatherNow"></app-main-card>
     </div>
 
-    <!-- * 3-DAY-FORECAST -->
-
-    <div class="combinesTitleAndCard2 col-12 col-md-7">
-      <h5>3 hour forecast:</h5>
-
-      <app-three-day-forecast
-        [timelineForOneDay]="timelineForOneDay"
-      ></app-three-day-forecast>
+    <!-- * MAP -->
+    <div class="col-12 col-md-6">
+      <h5 class="mb-3">Location:</h5>
+      <app-map></app-map>
     </div>
   </div>
 
   <!-- * 5-DAY-FORECAST -->
 
   <div class="row">
+    <!-- * 3-DAY-FORECAST -->
+
+    <div class="combinesTitleAndCard2 col-12 col-md-6">
+      <h5>3 hour forecast:</h5>
+
+      <app-three-day-forecast
+        [timelineForOneDay]="timelineForOneDay"
+      ></app-three-day-forecast>
+    </div>
     <div class="col-12 col-md-6">
       <h5>5 day forecast:</h5>
 
@@ -64,7 +69,4 @@
       ></app-five-day-forecast>
     </div>
   </div>
-
-  <!-- !MAP -->
-  <app-map></app-map>
 </div>
