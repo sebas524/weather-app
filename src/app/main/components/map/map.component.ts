@@ -3,7 +3,7 @@ import {
   AfterViewInit,
   Component,
   Input,
-  SimpleChanges,
+  OnDestroy,
 } from '@angular/core';
 
 import * as mapboxgl from 'mapbox-gl';
@@ -18,7 +18,9 @@ import { environment } from 'src/app/environments/environment';
   templateUrl: './map.component.html',
   styles: [],
 })
-export class MapComponent implements AfterViewInit, AfterViewChecked {
+export class MapComponent
+  implements AfterViewInit, AfterViewChecked, OnDestroy
+{
   @Input() lng: number = 0;
   @Input() lat: number = 0;
 
@@ -37,5 +39,10 @@ export class MapComponent implements AfterViewInit, AfterViewChecked {
     if (!this.map) throw 'El elemento HTML no fue encontrado';
 
     this.map.setCenter([this.lng, this.lat]);
+  }
+
+  ngOnDestroy(): void {
+    this.map?.remove();
+    console.log('on destroyed called');
   }
 }
