@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, Input, SimpleChanges } from '@angular/core';
 
 import * as mapboxgl from 'mapbox-gl';
 import { environment } from 'src/app/environments/environment';
@@ -11,12 +11,15 @@ import { environment } from 'src/app/environments/environment';
   styles: [],
 })
 export class MapComponent implements AfterViewInit {
+  @Input() lng: number = 0;
+  @Input() lat: number = 0;
+
   ngAfterViewInit(): void {
     const map = new mapboxgl.Map({
       container: 'map', // container ID
       style: 'mapbox://styles/mapbox/streets-v12', // style URL
-      center: [-74.5, 40], // starting position [lng, lat]
-      zoom: 9, // starting zoom
+      center: [this.lng, this.lat], // starting position [lng, lat]
+      zoom: 7, // starting zoom
     });
   }
 }

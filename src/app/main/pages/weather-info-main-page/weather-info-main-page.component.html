@@ -45,7 +45,11 @@
     <!-- * MAP -->
     <div class="col-12 col-md-6">
       <h5 class="mb-3">Location:</h5>
-      <app-map></app-map>
+      <app-map
+        *ngIf="latitude && longitude"
+        [lat]="latitude"
+        [lng]="longitude"
+      ></app-map>
     </div>
   </div>
 

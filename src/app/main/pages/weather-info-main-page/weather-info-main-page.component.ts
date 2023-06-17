@@ -83,6 +83,12 @@ export class WeatherInfoMainPageComponent implements OnInit {
   getTodayForecast(info: WeatherInter) {
     this.location = info.city;
 
+    const { coord } = info.city;
+    this.latitude = coord.lat;
+    this.longitude = coord.lon;
+    console.log('latitude => ', this.latitude);
+    console.log('longitude => ', this.longitude);
+
     // ! list is three hour forecast:
     // * we'll look through the list and slice the data so we can get just the first 8 elements (8 elements because it has the weather for every three hours and well 8 * 3 = 24, and we are looking for *read function name):
     for (const forecast of info.list.slice(0, 8)) {
